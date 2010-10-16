@@ -29,7 +29,7 @@ Benchmark.bmbm do |x|
   end
 
   x.report('Periodic Timer') do
-    10.times do
+    1.times do
       Worm.all.each &:move
       json = JSON.generate ['render', Map.data]
       Worm.sockets.map do

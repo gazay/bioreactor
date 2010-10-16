@@ -11,7 +11,7 @@ class Cell
   end
 
   def next(direction)
-    speed = 2
+    speed = 1
     case direction
     when 1
       then
