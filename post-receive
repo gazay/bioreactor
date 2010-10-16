@@ -13,7 +13,4 @@ echo `
   cd $working_dir
   touch tmp/restart.txt
   sudo killall ruby
-  nohup script/websocket &
 `
-
-curl -I http://bioreactor.r10.railsrumble.com
