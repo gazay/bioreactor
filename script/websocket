@@ -33,7 +33,7 @@ EM.run do
 
   end
 
-  EM::PeriodicTimer.new(0.15) do
+  EM::PeriodicTimer.new(0.05) do
     Worm.all.each &:move
     json = JSON.generate ['render', Map.data]
     Worm.sockets.each do |socket|
