@@ -10,14 +10,15 @@ EM.run do
   EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
 
     socket.onopen do
-      socket.send 'Opened'
+      Worm.new socket.object_id
     end
 
     socket.onclose do
+      Worm.destroy socket.object_id
     end
 
     socket.onmessage do |message|
-      socket.send "Echo: #{message}"
+      Worm.find(socket.object_id).direction = message.to_i
     end
 
   end
