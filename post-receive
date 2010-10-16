@@ -9,6 +9,7 @@ git --work-tree=$working_dir reset --hard HEAD --
 
 source '/usr/local/lib/rvm'
 
+
 sudo killall ruby
 sudo -i start-stop-daemon -d /var/www/rr10-team-69/ --start --exec /var/www/rr10-team-69/script/websocket --background
 touch /var/www/rr10-team-69/tmp/restart.txt
