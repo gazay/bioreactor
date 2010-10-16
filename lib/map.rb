@@ -20,6 +20,17 @@ module Map
     cell = self.cell rand(@width), rand(@height)
     cell.content.nil? ? cell : get_random
   end
+  
+  def get_wall(lenght)
+    wall = []
+    cell = get_random
+    wall << cell
+    (lenght - 1).times do
+      cell = cell.next(rand(4) + 1) while (cell != nil) and cell.content.nil?
+      wall << cell
+    end
+    wall
+  end
 
   def data
     Worm.all.map { |it| it.data }
