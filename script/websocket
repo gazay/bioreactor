@@ -15,6 +15,7 @@ EM.run do
   EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
 
     socket.onopen do
+      socket.send "Set-Cookie: highlight=#{socket.object_id}"
       Worm.new socket
     end
 
