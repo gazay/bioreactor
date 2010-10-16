@@ -1,3 +1,4 @@
+.bundle
 tmp/**
 log/*.log
 config/initializers/secret_token.rb
