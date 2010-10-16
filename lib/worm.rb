@@ -23,7 +23,16 @@ class Worm
   end
 
   def grow
-    @last_cell.content = self
+  
+  def cut(cell)
+    if @cells.find_index(cell) == 0
+      cell.content = nil
+      return nil
+    end
+    cutted = @cells.pop(@cells.size - @cells.find_index(cell))
+    cutted.each do |c|
+      c.content = nil
+    end
   end
 
   def destroy
