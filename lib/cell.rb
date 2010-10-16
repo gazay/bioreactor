@@ -11,19 +11,20 @@ class Cell
   end
 
   def next(direction)
+    speed = 2
     case direction
     when 1
       then
-      cell = Map.cell(x, y - 1)
+      cell = Map.cell(x, y - speed)
     when 2
       then
-      cell = Map.cell(x + 1, y)
+      cell = Map.cell(x + speed, y)
     when 3
       then
-      cell = Map.cell(x, y + 1)
+      cell = Map.cell(x, y + speed)
     when 4
       then
-      cell = Map.cell(x - 1, y)
+      cell = Map.cell(x - speed, y)
     end
     cell
   end
