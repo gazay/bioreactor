@@ -1,25 +1,27 @@
 #!/usr/bin/env ruby
 
-$0 = 'websocket'
+fork do
+  $0 = 'websocket'
 
-require 'bundler'
-Bundler.require :websocket
+  require 'bundler'
+  Bundler.require :websocket
 
-EM.run do
+  EM.run do
 
-  EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
+    EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
 
-    socket.onopen do
-      socket.send 'Opened'
-    end
+      socket.onopen do
+        socket.send 'Opened'
+      end
 
-    socket.onclose do
-    end
+      socket.onclose do
+      end
 
-    socket.onmessage do |message|
-      socket.send "Echo: #{message}"
+      socket.onmessage do |message|
+        socket.send "Echo: #{message}"
+      end
+
     end
 
   end
-
 end

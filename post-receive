@@ -9,9 +9,9 @@ git --work-tree=$working_dir reset --hard HEAD --
 
 source '/usr/local/lib/rvm'
 
-
 echo `
   cd $working_dir
   touch tmp/restart.txt
   sudo killall ruby
+  script/websocket
 `
