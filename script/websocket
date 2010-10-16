@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+fork do
+
+  $0 = 'websocket'
+
+  require 'bundler'
+  Bundler.require :websocket
+
+  EM.run do
+
+    EM::WebSocket.start(host: '0.0.0.0', port: 8080) do |socket|
+
+      socket.onopen do
+        socket.send 'Opened'
+      end
+
+      socket.onclose do
+        puts 'Closed'
+      end
+
+      socket.onmessage do |message|
+        puts "Echo: #{message}"
+      end
+
+    end
+
+  end
+
+end
