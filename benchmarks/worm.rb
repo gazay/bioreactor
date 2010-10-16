@@ -4,6 +4,7 @@ Bundler.require :benchmark
 $:.unshift './../lib'
 require 'cell'
 require 'map'
+require 'wall'
 require 'worm'
 require 'human'
 require 'benchmark'
@@ -29,7 +30,7 @@ Benchmark.bmbm do |x|
   end
 
   x.report('Periodic Timer') do
-    1.times do
+    10.times do
       Worm.all.each &:move
       json = JSON.generate ['render', Map.data]
       Worm.sockets.map do
@@ -43,4 +44,15 @@ Benchmark.bmbm do |x|
       Worm.destroy Worm.storage.first.first
     end
   end
+
+  x.report('Periodic Timer smaller') do
+    10.times do
+      Worm.all.each &:move
+      json = JSON.generate ['render', Map.data]
+      Worm.sockets.map do
+        json
+      end
+    end
+  end
+
 end

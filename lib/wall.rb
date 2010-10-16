@@ -1,23 +1,16 @@
 class Wall
   @@walls = []
+  @@strenght = 5
 
-  def initialize()
-    @cells = Map.get_wall
-    @@walls << self
+  def initialize(size)
+    @@walls + Map.get_wall(size, self)
   end
 
-  def destroy((x,y0), y1=nil)
-    y = y0 || y1
-    map.cell(x,y).content = nil
+  def self.data
+    ['w'] + @@walls.map {|it| it.location}
   end
 
-  def data
-    ['w'] + @cells.map { |it| it.location }
-  end
-
-  #class methods
-
-  def self.all
-    @@wals.values
+  def self.destroy(cell)
+    @@walls.delete cell
   end
 end

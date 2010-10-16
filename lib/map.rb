@@ -7,10 +7,6 @@ module Map
   @height = 50
   @map = Array.new(@width) { |x| Array.new(@height) { |y| Cell.new x, y }}
 
-  def generate
-    #TODO: when we will do some walls - don't forget this method
-  end
-
   def cell((x,y0), y1=nil)
     y = y0 || y1
     if x < @width and y < @height and x >= 0 and y >= 0
@@ -18,17 +14,23 @@ module Map
     end
   end
 
-  def get_random
+  def get_random(content)
     cell = self.cell rand(@width), rand(@height)
-    cell.content.nil? ? cell : get_random
+    if cell.content.nil?
+      cell.content = content
+      cell
+    else
+      get_random content
+    end
   end
 
-  def get_wall(lenght)
+  def get_wall(lenght, content)
     wall = []
-    cell = get_random
+    cell = get_random content
     wall << cell
     (lenght - 1).times do
       cell = cell.next(rand(4) + 1) while (cell != nil) and cell.content.nil?
+      cell.content = content
       wall << cell
     end
     wall

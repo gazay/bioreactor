@@ -4,7 +4,7 @@ class Human
   @@humans = []
 
   def initialize()
-    @cell = [Map.get_random]
+    @cell = Map.get_random self
     @direction = rand(4) + 1
     @speed = 1
     @type = rand(3)
@@ -21,6 +21,10 @@ class Human
 
   def data
     ['h', cell.location]
+  end
+
+  def self.destroy(human)
+    @@humans.delete(human)
   end
 
   def self.all

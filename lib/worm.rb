@@ -6,7 +6,7 @@ class Worm
 
   def initialize(socket)
     @id = socket.object_id
-    @cells = [Map.get_random]
+    @cells = [Map.get_random(self)]
     @direction = rand(4) + 1
     @speed = 1
     @@worms[socket] = self
@@ -15,16 +15,49 @@ class Worm
   def move
     next_cell = @cells.first.next(direction)
     return unless next_cell
-    next_cell.content = self
-    @cells.unshift next_cell
-    @last_cell = @cells.pop
-    @last_cell.content = nil
-    true
-
+    if check_content next_cell
+      next_cell.content = self
+      @cells.unshift next_cell
+      true
+    end
   end
 
-  def grow
-    @last_cell.content = self
+  def check_content(cell)
+    case cell.content
+      when NilClass
+        @last_cell = @cells.pop
+        @last_cell.content = nil
+        true
+      when Human
+        Human.destroy cell.content
+        true
+      when Worm then check_destiny(cell)
+      when Wall then head_bang(cell)
+    end
+  end
+
+  def check_destiny(cell)
+    enemy = cell.content
+    if self.size != enemy.size
+      enemy.respawn if self.size > enemy.size
+      return self.respawn if self.size < enemy.size
+    else
+      if rand(2) == 1
+        return self.respawn
+      else
+        enemy.respawn
+      end
+    end
+    true
+  end
+
+  def head_bang(cell)
+    if self.size > Wall.strenght
+      Wall.destroy cell
+      true
+    else
+      false
+    end
   end
 
   def cut(cell)
@@ -38,6 +71,12 @@ class Worm
     end
   end
 
+  def respawn
+    @cells = [Map.get_random(self)]
+    @direction = rand(4) + 1
+    false
+  end
+
   def destroy
     @cells.each do |cell|
       cell.content = nil
@@ -46,6 +85,10 @@ class Worm
 
   def data
     [id] << @cells.map { |it| it.location }
+  end
+
+  def size
+    @cells.size
   end
 
   #class methods
@@ -69,11 +112,5 @@ class Worm
 
   def self.storage
     @@worms
-  end
-
-  #not realized methods yet
-
-  def check_availability(cell)
-    #TODO: when we create walls - use this method, or create in Cell
   end
 end
