@@ -39,6 +39,7 @@ GEM
     eventmachine (0.12.10)
     haml (3.0.21)
     i18n (0.4.1)
+    json (1.4.6)
     mail (2.2.7)
       activesupport (>= 2.3.6)
       mime-types
@@ -76,5 +77,6 @@ PLATFORMS
 DEPENDENCIES
   em-websocket
   haml
+  json
   minitest
   rails (= 3.0.0)

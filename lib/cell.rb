@@ -7,7 +7,7 @@ class Cell
   end
 
   def location
-    [:x, :y]
+    [@x, @y]
   end
 
   def next(direction)
