@@ -8,5 +8,6 @@ group :development, :production do
 end
 
 group :websocket do
+  gem 'json'
   gem 'em-websocket'
 end
