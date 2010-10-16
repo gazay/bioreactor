@@ -11,11 +11,20 @@ socket.parse = function(data){
     api[command](arguments)
 }
 
+var previousTime, currentTime
 
-socket.onopen = function(){ socket.opened = true }
 socket.onclose = function(){ console.log('closed') }
 socket.onerror = function(){ console.log('error') }
-socket.onmessage = function(event){ socket.parse(event.data) }
+socket.onopen = function(){
+    socket.opened = true
+    previousTime = new Date().getTime()
+}
+socket.onmessage = function(event){
+    currentTime = new Date().getTime()
+    console.log((currentTime - previousTime)/1000)
+    previousTime = currentTime
+    socket.parse(event.data)
+}
 
 canvas = $('canvas')[0].getContext('2d')
 canvas.element = $('canvas')[0]
