@@ -17,13 +17,13 @@ class Cell
       cell = Map.cell(x, y - 1)
     when 2
       then
-      cell = Map.cell(x - 1, y)
+      cell = Map.cell(x + 1, y)
     when 3
       then
       cell = Map.cell(x, y + 1)
     when 4
       then
-      cell = Map.cell(x + 1, y)
+      cell = Map.cell(x - 1, y)
     end
     cell
   end
