@@ -4,7 +4,8 @@ WEB_SOCKET_DEBUG = false;
 socket = new WebSocket('ws://bioreactor.r10.railsrumble.com:8080')
 
 socket.parse = function(data){
-    canvas.draw(JSON.parse(data))
+    var json = JSON.parse(data)
+    canvas.draw(json)
 }
 
 socket.onopen = function(){ console.log('opened') }
