@@ -11,7 +11,8 @@ socket.parse = function(data){
     api[command](arguments)
 }
 
-socket.onopen = function(){ console.log('opened') }
+
+socket.onopen = function(){ socket.opened = true }
 socket.onclose = function(){ console.log('closed') }
 socket.onerror = function(){ console.log('error') }
 socket.onmessage = function(event){ socket.parse(event.data) }
@@ -45,3 +46,28 @@ api = {
     render: function(objects){ canvas.draw(objects) },
     id: function(value){ socket.id = value }
 }
+
+keyboard = {
+    init: function(){
+        $(document).keydown(function(event){
+            if (!socket.opened) return
+
+            switch(event.which){
+                case 37:
+                    socket.send(4)
+                    break
+                case 38:
+                    socket.send(1)
+                    break
+                case 39:
+                    socket.send(2)
+                    break
+                case 40:
+                    socket.send(3)
+                    break
+            }
+        })
+    }
+}
+
+keyboard.init()
