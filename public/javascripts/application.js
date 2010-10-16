@@ -8,7 +8,6 @@ socket.parse = function(data){
         command = parsed[0],
         arguments = parsed[1]
 
-    console.log(parsed)
     api[command](arguments)
 }
 
@@ -28,17 +27,16 @@ canvas.clear = function(){
 
 canvas.draw = function(objects){
     // canvas.clear()
-    console.log(objects)
 
     $.each(objects, function(index, object){
         var id = object[0],
-            locations = object.slice(1,-1)
+            locations = object.slice(1)
 
         $.each(locations, function(index, location){
             var x = location[0],
                 y = location[1]
 
-            canvas.fillRect(100, 100, 4, 4)
+            canvas.fillRect(x*4-2, y*4-2, 4, 4)
         })
     })
 }
