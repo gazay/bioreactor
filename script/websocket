@@ -14,6 +14,17 @@ def json(command, data)
   JSON.generate [command, data]
 end
 
+def tick
+  EM::Timer.new(0.05) do
+    Worm.all.each &:move
+    json = JSON.generate ['render', Map.data]
+    Worm.sockets.each do |socket|
+      socket.send json
+    end
+    tick
+  end
+end
+
 EM.run do
 
   EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
@@ -33,12 +44,5 @@ EM.run do
 
   end
 
-  EM::PeriodicTimer.new(0.05) do
-    Worm.all.each &:move
-    json = JSON.generate ['render', Map.data]
-    Worm.sockets.each do |socket|
-      socket.send json
-    end
-  end
-
+  tick
 end
