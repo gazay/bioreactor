@@ -19,4 +19,8 @@ module Map
     cell = @map.cell rand(width), rand(height)
     cell.content.nil? ? cell : get_random
   end
+  
+  def data
+    Worm.all.map { |it| it.data }
+  end
 end
