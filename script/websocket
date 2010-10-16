@@ -5,22 +5,28 @@ $0 = 'websocket'
 require 'bundler'
 Bundler.require :websocket
 
+
 EM.run do
 
   EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
 
     socket.onopen do
-      Worm.new socket.object_id
+      Worm.new socket
     end
 
     socket.onclose do
-      Worm.destroy socket.object_id
+      Worm.destroy socket
     end
 
     socket.onmessage do |message|
-      Worm.find(socket.object_id).direction = message.to_i
+      Worm.find(socket).direction = message.to_i
     end
 
+  end
+
+  EM::PeriodicTimer.new(0.1) do
+    json = Map.data.to_json
+    Worm.keys
   end
 
 end
