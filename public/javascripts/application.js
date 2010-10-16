@@ -30,6 +30,6 @@ canvas.draw = function(objects){
 }
 
 api = {
-    draw: function(objects){ canvas.draw(objects) },
+    render: function(objects){ canvas.draw(objects) },
     id: function(value){ console.log(value); socket.id = value }
 }
