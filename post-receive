@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'deploying'
+
 here=`pwd`
 working_dir=`echo "$here" | sed 's/\/.git$//g'`
 
