@@ -8,6 +8,10 @@ group :development, :production do
   gem 'twitter'
 end
 
+group :benchmark do
+  gem 'json'
+end
+
 group :websocket do
   gem 'json'
   gem 'em-websocket'

@@ -66,6 +66,10 @@ class Worm
     @@worms.keys
   end
 
+  def self.storage
+    @@worms
+  end
+
   #not realized methods yet
 
   def check_availability(cell)

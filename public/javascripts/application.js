@@ -54,16 +54,28 @@ keyboard = {
 
             switch(event.which){
                 case 37:
-                    socket.send(4)
+                    if (keyboard.direction != 4){
+                        keyboard.direction = 4
+                        socket.send(4)
+                    }
                     break
                 case 38:
-                    socket.send(1)
+                    if (keyboard.direction != 1){
+                        keyboard.direction = 1
+                        socket.send(1)
+                    }
                     break
                 case 39:
-                    socket.send(2)
+                    if (keyboard.direction != 2){
+                        keyboard.direction = 2
+                        socket.send(2)
+                    }
                     break
                 case 40:
-                    socket.send(3)
+                    if (keyboard.direction != 3){
+                        keyboard.direction = 3
+                        socket.send(3)
+                    }
                     break
             }
         })
