@@ -6,8 +6,9 @@ socket = new WebSocket('ws://bioreactor.r10.railsrumble.com:8080')
 socket.parse = function(data){
     var parsed = JSON.parse(data),
         command = parsed[0],
-        arguments = parsed.slice(1,-1)
+        arguments = parsed[1]
 
+    console.log(parsed)
     api[command](arguments)
 }
 
@@ -27,10 +28,12 @@ canvas.clear = function(){
 
 canvas.draw = function(objects){
     // canvas.clear()
+    console.log(objects)
 
     $.each(objects, function(index, object){
         var id = object[0],
-            locations = object[1]
+            locations = object.slice(1,-1)
+
         $.each(locations, function(index, location){
             var x = location[0],
                 y = location[1]

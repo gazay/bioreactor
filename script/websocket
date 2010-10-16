@@ -14,7 +14,6 @@ def json(command, data)
   JSON.generate [command, data]
 end
 
-
 EM.run do
 
   EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
