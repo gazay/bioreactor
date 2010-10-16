@@ -1,6 +1,8 @@
 module Map
   extend self
 
+  attr_reader :width, :height
+
   @width = 70
   @height = 50
   @map = Array.new(@width) { |x| Array.new(@height) { |y| Cell.new x, y }}
@@ -20,7 +22,7 @@ module Map
     cell = self.cell rand(@width), rand(@height)
     cell.content.nil? ? cell : get_random
   end
-  
+
   def get_wall(lenght)
     wall = []
     cell = get_random
