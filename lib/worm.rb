@@ -23,7 +23,9 @@ class Worm
   end
 
   def grow
-  
+    @last_cell.content = self
+  end
+
   def cut(cell)
     if @cells.find_index(cell) == 0
       cell.content = nil

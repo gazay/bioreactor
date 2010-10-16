@@ -31,6 +31,7 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
+    crack (0.1.8)
     em-websocket (0.1.4)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
@@ -38,6 +39,9 @@ GEM
       abstract (>= 1.0.0)
     eventmachine (0.12.10)
     haml (3.0.21)
+    hashie (0.4.0)
+    httparty (0.6.1)
+      crack (= 0.1.8)
     i18n (0.4.1)
     json (1.4.6)
     mail (2.2.7)
@@ -46,6 +50,8 @@ GEM
       treetop (>= 1.4.5)
     mime-types (1.16)
     minitest (1.7.2)
+    multi_json (0.0.4)
+    oauth (0.4.3)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -69,6 +75,11 @@ GEM
     thor (0.14.3)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
+    twitter (0.9.12)
+      hashie (~> 0.4.0)
+      httparty (~> 0.6.1)
+      multi_json (~> 0.0.4)
+      oauth (~> 0.4.3)
     tzinfo (0.3.23)
 
 PLATFORMS
@@ -80,3 +91,4 @@ DEPENDENCIES
   json
   minitest
   rails (= 3.0.0)
+  twitter
