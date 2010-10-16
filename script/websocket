@@ -11,7 +11,7 @@ require 'worm'
 require 'human'
 
 def json(command, data)
-  JSON.parse [command, data]
+  JSON.generate [command, data]
 end
 
 EM.run do
