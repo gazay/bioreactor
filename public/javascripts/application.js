@@ -26,7 +26,7 @@ canvas.clear = function(){
 }
 
 canvas.draw = function(objects){
-    // canvas.clear()
+    canvas.clear()
 
     $.each(objects, function(index, object){
         var id = object[0],
