@@ -1,0 +1,18 @@
+#!/bin/bash
+
+here=`pwd`
+working_dir=`echo "$here" | sed 's/\/.git$//g'`
+
+git --work-tree=$working_dir reset --hard HEAD --
+
+source '/usr/local/lib/rvm'
+
+echo `
+  cd $working_dir
+  bundle install
+  touch tmp/restart.txt
+  sudo killall ruby
+  nohup script/websocket &
+`
+
+curl -I http://bioreactor.r10.railsrumble.com
