@@ -40,7 +40,7 @@ class Worm
 
   def self.destroy(socket)
     @@worms[socket].destroy
-    @@worms.delete worm_id
+    @@worms.delete socket
   end
 
   def self.find(socket)

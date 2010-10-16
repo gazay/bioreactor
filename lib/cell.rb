@@ -1,15 +1,15 @@
 class Cell
   attr_accessor :x, :y, :content
-  
-  def initialize()
+
+  def initialize(x, y)
     @x = x
     @y = y
   end
-  
+
   def location
     [:x, :y]
   end
-  
+
   def next(direction)
     case direction
     when 1

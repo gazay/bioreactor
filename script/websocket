@@ -4,7 +4,11 @@ $0 = 'websocket'
 
 require 'bundler'
 Bundler.require :websocket
-
+$:.unshift './lib'
+require 'cell'
+require 'map'
+require 'worm'
+require 'human'
 
 EM.run do
 
@@ -26,7 +30,9 @@ EM.run do
 
   EM::PeriodicTimer.new(0.1) do
     json = Map.data.to_json
-    Worm.keys
+    Worm.sockets.each do |socket|
+      socket.send json
+    end
   end
 
 end
