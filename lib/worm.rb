@@ -32,6 +32,9 @@ class Worm
     end
   end
   
+  def data
+    [id] + @cells.map { |it| it.location }
+  end
   #class methods
   
   def self.destroy(worm_id)
@@ -43,6 +46,9 @@ class Worm
     @@worms[worm_id]
   end
   
+  def self.all
+    @@worms
+  end
   #not realized methods yet
   
   def check_availability(cell)
