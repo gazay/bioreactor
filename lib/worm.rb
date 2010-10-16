@@ -33,9 +33,9 @@ class Worm
   end
 
   def data
-    [id] + @cells.map { |it| it.location }
+    [id] << @cells.map { |it| it.location }
   end
-  
+
   #class methods
 
   def self.destroy(socket)
