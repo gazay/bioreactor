@@ -1,7 +1,7 @@
 WEB_SOCKET_SWF_LOCATION = "/javascripts/WebSocketMain.swf";
 WEB_SOCKET_DEBUG = false;
 
-socket = new WebSocket('ws://bioreactor.r10.railsrumble.com:8080')
+socket = new WebSocket('ws://192.168.0.126:8080')
 
 socket.parse = function(data){
     var parsed = JSON.parse(data),

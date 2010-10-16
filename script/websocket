@@ -19,7 +19,7 @@ def tick
     Worm.all.each &:move
     json = JSON.generate ['render', Map.data]
     Worm.sockets.each do |socket|
-      socket.send json
+      socket.send(json)
     end
     tick
   end
@@ -27,7 +27,7 @@ end
 
 EM.run do
 
-  EM::WebSocket.start(host: 'bioreactor.r10.railsrumble.com', port: 8080) do |socket|
+  EM::WebSocket.start(host: '0.0.0.0', port: 8080) do |socket|
 
     socket.onopen do
       socket.send json('id', socket.object_id)

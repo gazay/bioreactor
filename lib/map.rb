@@ -35,6 +35,6 @@ module Map
   end
 
   def data
-    Worm.all.map { |it| it.data }
+    Hash[*Worm.all.map { |it| it.data }]
   end
 end
