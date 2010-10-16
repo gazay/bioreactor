@@ -16,11 +16,10 @@ fork do
       end
 
       socket.onclose do
-        puts 'Closed'
       end
 
       socket.onmessage do |message|
-        puts "Echo: #{message}"
+        socket.send "Echo: #{message}"
       end
 
     end
