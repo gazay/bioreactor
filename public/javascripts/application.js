@@ -4,9 +4,11 @@ WEB_SOCKET_DEBUG = false;
 socket = new WebSocket('ws://bioreactor.r10.railsrumble.com:8080')
 
 socket.parse = function(data){
-    console.log(data)
-    var json = JSON.parse(data)
-    canvas.draw(json)
+    var parsed = JSON.parse(data),
+        command = parsed[0],
+        arguments = parsed[1]
+
+    api[command](arguments)
 }
 
 socket.onopen = function(){ console.log('opened') }
@@ -23,7 +25,11 @@ canvas.draw = function(objects){
         $.each(locations, function(index, location){
             var x = location[0],
                 y = location[1]
-
         })
     })
+}
+
+api = {
+    draw: function(objects){ canvas.draw(objects) },
+    id: function(value){ console.log(value); socket.id = value }
 }
