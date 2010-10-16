@@ -20,6 +20,7 @@ class Worm
     @last_cell = @cells.pop
     @last_cell.content = nil
     true
+
   end
 
   def grow
