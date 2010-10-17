@@ -22,7 +22,6 @@ class Worm
     if check_content next_cell
       next_cell.content = self
       @cells.unshift next_cell
-      true
     end
   end
 

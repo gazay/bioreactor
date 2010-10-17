@@ -24,6 +24,7 @@ def tick
     #   puts
     # end
     Worm.all.each &:move
+    Human.all.each &:move
     json = JSON.generate ['render', Map.data]
     Worm.sockets.each do |socket|
       socket.send json
@@ -33,6 +34,7 @@ def tick
 end
 
 Host = (ENV['RAILS_ENV'] == 'production') ? 'bioreactor.r10.railsrumble.com' : '0.0.0.0'
+5.times { Human.new }
 
 EM.run do
 

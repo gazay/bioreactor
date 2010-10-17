@@ -37,7 +37,9 @@ module Map
   end
 
   def data
-    Hash[*Worm.all.map { |it| it.data }.flatten(1)]
+    worms = Worm.all.map {|it| it.data }.flatten(1)
+    humans = Human.all.map {|it| it.data }.flatten(1)
+    Hash[*(worms+humans)]
   end
 
   def view

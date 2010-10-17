@@ -12,19 +12,28 @@ class Human
   end
 
   def move
-    next_cell = @cell.next(direction)
-    next_cell = @cell.next(rand(4) + 1) while next_cell
-    next_cell.content = self
-    @cell.content = nil
-    true
+    @direction = rand(4) + 1 if rand(3) == 0
+    next_cell = @cell.next(@direction)
+
+    if !next_cell or next_cell.content
+      @direction = rand(4) + 1
+      next_cell = @cell.next(@direction)
+    end
+
+    if next_cell && !next_cell.content
+      @cell.content = nil
+      @cell = next_cell
+      @cell.content = self
+    end
   end
 
   def data
-    ['h', cell.location]
+    ["h#{self.object_id}", [@cell.location]]
   end
 
   def self.destroy(human)
     @@humans.delete(human)
+    new
   end
 
   def self.all

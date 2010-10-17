@@ -57,7 +57,11 @@ canvas.draw = function(objects){
                     prevY = prevLocation[i][1];
             }
 
-            canvas.fillRect(x*4, y*4, 4, 4)
+            if (typeof(id) == 'string' && id.indexOf('h') != -1)
+                canvas.fillRect(x*4+1, y*4+1, 2, 2)
+            else
+                canvas.fillRect(x*4, y*4, 4, 4)
+
       /*var j = 4;
       while(j>0){
         prevX += (prevX-x);

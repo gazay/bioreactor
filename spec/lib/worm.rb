@@ -27,8 +27,9 @@ describe Worm do
   it 'should use correct format' do
     socket = Object.new
     Worm.new socket
-    p Worm.all.map { |it| it.data }.flatten(0)
-    p Hash[*Worm.all.map { |it| it.data }.flatten(1)]
+    Human.new
+    Human.new
+    p Map.data
   end
 
 end
