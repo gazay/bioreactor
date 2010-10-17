@@ -20,12 +20,12 @@ socket.onerror = function(){ console.log('error') }
 socket.onopen = function(){
     socket.opened = true
     ping.start()
-    previousTime = new Date().getTime()
+    // previousTime = new Date().getTime()
 }
 socket.onmessage = function(event){
-    currentTime = new Date().getTime()
-    console.log((currentTime - previousTime)/1000)
-    previousTime = currentTime
+    // currentTime = new Date().getTime()
+    // console.log((currentTime - previousTime)/1000)
+    // previousTime = currentTime
     socket.parse(event.data)
 }
 
@@ -118,13 +118,21 @@ ping = {
     start: function(){
         ping.element = $('<div id="ping">').appendTo('body')
         ping.time = new Date().getTime()
+        ping.results = []
+        setInterval(ping.show, 1000)
         socket.send('ping')
     },
     update: function(){
         ping.old_time = ping.time
         ping.time = new Date().getTime()
-        ping.element.text('Ping: ' + (ping.time - ping.old_time))
+        ping.results.push(ping.time - ping.old_time)
+        if (ping.results.length > 5) ping.results.shift
         socket.send('ping')
+    },
+    show: function(){
+        var sum = 0
+        $.each(ping.results, function(i,it){ sum += it} )
+        ping.element.text('Ping: ' + ( sum / ping.results.length))
     }
 }
 
