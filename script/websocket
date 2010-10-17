@@ -48,7 +48,11 @@ EM.run do
     end
 
     socket.onmessage do |message|
-      Worm.find(socket).direction = message.to_i
+      if message == 'ping'
+        socket.send '["ping"]'
+      else
+        Worm.find(socket).direction = message.to_i
+      end
     end
 
   end

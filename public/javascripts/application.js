@@ -19,6 +19,7 @@ socket.onclose = function(){ console.log('closed') }
 socket.onerror = function(){ console.log('error') }
 socket.onopen = function(){
     socket.opened = true
+    ping.start()
     previousTime = new Date().getTime()
 }
 socket.onmessage = function(event){
@@ -74,6 +75,7 @@ canvas.draw = function(objects){
 
 api = {
     render: function(objects){ canvas.draw(objects) },
+    ping: function(){ ping.update() },
     id: function(value){ socket.id = value }
 }
 
@@ -109,6 +111,20 @@ keyboard = {
                     break
             }
         })
+    }
+}
+
+ping = {
+    start: function(){
+        ping.element = $('<div id="ping">').appendTo('body')
+        ping.time = new Date().getTime()
+        socket.send('ping')
+    },
+    update: function(){
+        ping.old_time = ping.time
+        ping.time = new Date().getTime()
+        ping.element.text('Ping: ' + (ping.time - ping.old_time))
+        socket.send('ping')
     }
 }
 
