@@ -132,7 +132,7 @@ ping = {
     show: function(){
         var sum = 0
         $.each(ping.results, function(i,it){ sum += it} )
-        ping.element.text('Ping: ' + parseInt(sum / ping.results.length))
+        ping.element.text('Latency: ' + parseInt(sum / ping.results.length))
     }
 }
 
