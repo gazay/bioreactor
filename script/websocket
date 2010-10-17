@@ -26,20 +26,13 @@ def tick
     Worm.all.each &:move
     json = JSON.generate ['render', Map.data]
     Worm.sockets.each do |socket|
-      unless socket.active
-        socket.active = true
-        socket.send json
-      end
+      socket.send json
     end
     tick
   end
 end
 
 Host = (ENV['RAILS_ENV'] == 'production') ? 'bioreactor.r10.railsrumble.com' : '0.0.0.0'
-
-class EM::WebSocket::Connection
-  attr_accessor :active
-end
 
 EM.run do
 
@@ -55,11 +48,7 @@ EM.run do
     end
 
     socket.onmessage do |message|
-      if message == 'ready'
-        socket.active = false
-      else
-        Worm.find(socket).direction = message.to_i
-      end
+      Worm.find(socket).direction = message.to_i
     end
 
   end

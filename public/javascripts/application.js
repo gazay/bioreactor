@@ -22,7 +22,6 @@ socket.onopen = function(){
     previousTime = new Date().getTime()
 }
 socket.onmessage = function(event){
-    socket.send('ready')
     currentTime = new Date().getTime()
     console.log((currentTime - previousTime)/1000)
     previousTime = currentTime
