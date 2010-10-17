@@ -1,12 +1,12 @@
 class Worm
   attr_accessor :direction, :speed, :last_cell
-  attr_reader :id
+  attr_reader :id, :cells
 
   @@worms = {}
 
   def initialize(socket)
     @id = socket.object_id
-    @cells = [Map.get_random(self)]
+    @cells = Array.new(rand(5) + 1){ Map.get_random(self) }
     @direction = rand(4) + 1
     @speed = 1
     @@worms[socket] = self
@@ -38,15 +38,20 @@ class Worm
 
   def check_destiny(cell)
     enemy = cell.content
-    if self.size != enemy.size
-      enemy.respawn if self.size > enemy.size
-      return self.respawn if self.size < enemy.size
-    else
-      if rand(2) == 1
-        return self.respawn
-      else
+    if enemy.cells.first != cell
+      enemy.cut cell
+    elsif (direction - enemy.direction).abs == 2
+      if self.size > enemy.size
         enemy.respawn
+        return true
       end
+      if self.size < enemy.size
+        self.respawn
+        return false
+      end
+      return false
+    else
+      enemy.respawn
     end
     true
   end
@@ -61,13 +66,14 @@ class Worm
   end
 
   def cut(cell)
-    if @cells.find_index(cell) == 0
-      cell.content = nil
-      return nil
-    end
-    cutted = @cells.pop(@cells.size - @cells.find_index(cell))
-    cutted.each do |c|
-      c.content = nil
+    index = @cells.index(cell)
+    if index == 0
+      respawn
+    else
+      cutted = @cells.pop(@cells.size - index)
+      cutted.each do |c|
+        c.content = nil
+      end
     end
   end
 
