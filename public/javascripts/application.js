@@ -109,24 +109,28 @@ keyboard = {
             if (!socket.opened) return
 
             switch(event.which){
+                case 65:
                 case 37:
                     if (keyboard.direction != 4){
                         keyboard.direction = 4
                         socket.send(4)
                     }
                     return false
+                case 87:
                 case 38:
                     if (keyboard.direction != 1){
                         keyboard.direction = 1
                         socket.send(1)
                     }
                     return false
+                case 68:
                 case 39:
                     if (keyboard.direction != 2){
                         keyboard.direction = 2
                         socket.send(2)
                     }
                     return false
+                case 83:
                 case 40:
                     if (keyboard.direction != 3){
                         keyboard.direction = 3
