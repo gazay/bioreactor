@@ -156,12 +156,18 @@ ping = {
         setTimeout(function(){
             ping.time = new Date().getTime()
             socket.send('ping')
-        }, 1000)
+        }, 1500)
     },
     show: function(){
         var sum = 0
         $.each(ping.results, function(i,it){ sum += it })
-        ping.element.text('Ping: ' + parseInt(sum / ping.results.length))
+        var result = parseInt(sum / ping.results.length)
+        var sorry = '<br/>Sorry, you can experience delay<br/>because of the distance to our server'
+
+        if result > 150
+            ping.element.text('Ping: ' + result + sorry)
+        else
+            ping.element.text('Ping: ' + result)
     }
 }
 
