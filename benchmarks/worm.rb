@@ -22,7 +22,13 @@ Benchmark.bmbm do |x|
   end
 
   x.report('Worm.find+direction') do
-    1000.times do
+    Map.width.times do |x|
+      Map.height.times do |y|
+        Map.cell(x,y).content = nil
+      end
+    end
+
+    100.times do
       socket = Object.new
       Worm.new socket
       Worm.find(socket).direction = '1'.to_i

@@ -1,15 +1,19 @@
 class Worm
-  attr_accessor :direction, :speed, :last_cell
-  attr_reader :id, :cells
+  attr_accessor :speed, :last_cell
+  attr_reader :id, :cells, :direction
 
   @@worms = {}
 
   def initialize(socket)
     @id = socket.object_id
-    @cells = Array.new(rand(5) + 1){ Map.get_random(self) }
-    @direction = rand(4) + 1
+    init_data
     @speed = 1
     @@worms[socket] = self
+  end
+
+  def init_data
+    @cells = [ Map.get_random(self) ]
+    @direction = rand(4) + 1
   end
 
   def move
@@ -40,7 +44,7 @@ class Worm
     enemy = cell.content
     if enemy.cells.first != cell
       enemy.cut cell
-    elsif (direction - enemy.direction).abs == 2
+    elsif reverse_direction? enemy.direction
       if self.size > enemy.size
         enemy.respawn
         return true
@@ -79,9 +83,7 @@ class Worm
 
   def respawn
     destroy
-    @cells = [Map.get_random(self)]
-    @direction = rand(4) + 1
-    false
+    init_data
   end
 
   def destroy
@@ -96,6 +98,15 @@ class Worm
 
   def size
     @cells.size
+  end
+
+  def reverse_direction?(other_direction)
+    (direction - other_direction).abs == 2
+  end
+
+  def direction=(new_direction)
+    @cells.reverse! if reverse_direction? new_direction
+    @direction = new_direction
   end
 
   #class methods
