@@ -35,36 +35,41 @@ canvas.clear = function(){
     canvas.clearRect(0,0,canvas.element.width,canvas.element.height)
 }
 
-canvas.previous = '';
+canvas.previous = {};
 
 
 canvas.draw = function(objects){
     canvas.clear()
 
-	for(id in objects){
-		var location = objects[id], prevLocation = canvas.previous != '' ? canvas.previous[id] : objects[id];
-		console.log(canvas.previous)
-		// console.log('===' + Object.prototype.toString(location[1]))
-		for(var i = 0; i<location.length; i++){
-            	var x = location[i][0],
-                	y = location[i][1],
-					prevX = prevLocation[i][0],
-					prevY = prevLocation[i][1];
-					console.log(x+" : "+prevX)
-				canvas.fillRect(x*4, y*4, 4, 4)
-			/*var j = 4;	
-			while(j>0){
-				prevX += (prevX-x);
-				prevY += (prevY-y);
-            	canvas.fillRect(prevX, prevY, 4, 4)
-			j--
-			}
-			console.log(x+" : "+prevX)*/	
+  for(id in objects){
+    var location = objects[id], prevLocation = canvas.previous[id];
+    console.log(canvas.previous)
+    console.log(location)
+    // console.log('===' + Object.prototype.toString(location[1]))
+    for(var i = 0; i<location.length; i++){
+              var x = location[i][0],
+                  y = location[i][1]
+
+          console.log(i)
+          if (prevLocation && prevLocation[i]){
+            var prevX = prevLocation[i][0],
+                prevY = prevLocation[i][1];
+          }
+
+        canvas.fillRect(x*4, y*4, 4, 4)
+      /*var j = 4;
+      while(j>0){
+        prevX += (prevX-x);
+        prevY += (prevY-y);
+              canvas.fillRect(prevX, prevY, 4, 4)
+      j--
+      }
+      console.log(x+" : "+prevX)*/
         }
-	}
-	
-	
-	canvas.previous = objects;
+  }
+
+
+  canvas.previous = objects;
 
 }
 
