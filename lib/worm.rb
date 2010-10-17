@@ -27,17 +27,17 @@ class Worm
 
   def check_content(cell)
     case cell.content
-	  when Bioreactor
-		self.respawn #Muahahahah
-      when NilClass
-        @last_cell = @cells.pop
-        @last_cell.content = nil
-        true
-      when Human
-        Human.destroy cell.content
-        true
-      when Worm then check_destiny(cell)
-      when Wall then head_bang(cell)
+    when Bioreactor
+    self.respawn #Muahahahah
+    when NilClass
+      @last_cell = @cells.pop
+      @last_cell.content = nil
+      true
+    when Human
+      Human.destroy cell.content
+      true
+    when Worm then check_destiny(cell)
+    when Wall then head_bang(cell)
     end
   end
 
@@ -80,7 +80,7 @@ class Worm
       cutted = @cells.pop(@cells.size - index)
       cutted.each do |c|
         c.content = nil
-	Human.new c
+  Human.new c
       end
     end
   end

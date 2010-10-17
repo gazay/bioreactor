@@ -4,6 +4,7 @@ Bundler.require :benchmark
 $:.unshift './../lib'
 require 'cell'
 require 'map'
+require 'bioreactor'
 require 'wall'
 require 'worm'
 require 'human'
