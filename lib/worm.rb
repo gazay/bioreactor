@@ -9,10 +9,6 @@ class Worm
     init_data
     @speed = 1
     @@worms[socket] = self
-    2.times do
-      cell = @cells.first.next(direction)
-      unshift cell if cell
-    end
   end
 
   def init_data
