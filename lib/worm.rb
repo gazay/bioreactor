@@ -27,6 +27,8 @@ class Worm
 
   def check_content(cell)
     case cell.content
+	  when Bioreactor
+		self.respawn #Muahahahah
       when NilClass
         @last_cell = @cells.pop
         @last_cell.content = nil
@@ -78,6 +80,7 @@ class Worm
       cutted = @cells.pop(@cells.size - index)
       cutted.each do |c|
         c.content = nil
+	Human.new c
       end
     end
   end
