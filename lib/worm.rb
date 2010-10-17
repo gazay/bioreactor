@@ -72,6 +72,7 @@ class Worm
   end
 
   def respawn
+    destroy
     @cells = [Map.get_random(self)]
     @direction = rand(4) + 1
     false

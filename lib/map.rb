@@ -39,4 +39,8 @@ module Map
   def data
     Hash[*Worm.all.map { |it| it.data }.flatten(1)]
   end
+
+  def view
+    @map.transpose.map {|it| it.map {|cell| cell.content ? 'P' : ' ' }.join }.join "\n"
+  end
 end
