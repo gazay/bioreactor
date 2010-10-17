@@ -20,12 +20,12 @@ socket.onerror = function(){ console.log('error') }
 socket.onopen = function(){
     socket.opened = true
     ping.start()
-    // previousTime = new Date().getTime()
+    previousTime = new Date().getTime()
 }
 socket.onmessage = function(event){
-    // currentTime = new Date().getTime()
-    // console.log((currentTime - previousTime)/1000)
-    // previousTime = currentTime
+    currentTime = new Date().getTime()
+    console.log((currentTime - previousTime)/1000)
+    previousTime = currentTime
     socket.parse(event.data)
 }
 
