@@ -1,7 +1,7 @@
 WEB_SOCKET_SWF_LOCATION = "/javascripts/WebSocketMain.swf";
 WEB_SOCKET_DEBUG = false;
 
-host = (document.location.href.indexOf('file://') == -1) ? 'bioreactor.r10.railsrumble.com' : '192.168.0.126'
+host = (document.location.href.indexOf('file://') == -1 && document.location.href.indexOf('192') == -1) ? 'bioreactor.r10.railsrumble.com' : '192.168.0.126'
 host = 'ws://'+ host +':8080'
 socket = new WebSocket(host)
 
