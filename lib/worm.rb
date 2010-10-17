@@ -41,7 +41,9 @@ class Worm
 
   def check_destiny(cell)
     enemy = cell.content
-    if enemy.cells.first != cell
+    if enemy == self
+      return false
+    elsif enemy.cells.first != cell
       enemy.cut cell
     elsif reverse_direction? enemy.direction
       if self.size > enemy.size

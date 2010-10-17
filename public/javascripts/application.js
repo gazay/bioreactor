@@ -32,7 +32,7 @@ socket.onmessage = function(event){
 canvas = $('canvas')[0].getContext('2d')
 canvas.element = $('canvas')[0]
 canvas.position = $('canvas').position()
-cell = 4
+cell = 40
 canvas.element.width = 70 * cell
 canvas.element.height = 50 * cell
 
@@ -49,22 +49,24 @@ canvas.draw = function(objects){
         canvas.fillStyle = (id == socket.id) ? 'red' : 'black'
         var location = objects[id], prevLocation = canvas.previous[id];
 
-        // if (id == socket.id){
-        //     var elementTop = canvas.position.top + location[0][1]*cell,
-        //         elementLeft = canvas.position.left + location[0][0]*cell,
-        //         leftBorder = $('body').scrollLeft() + cell,
-        //         topBorder = $('body').scrollTop() + cell,
-        //         rightBorder = leftBorder + $(window).width(),
-        //         bottomBorder = topBorder + $(window).height()
-        //
-        //
-        //     if (elementTop <= topBorder)
-        //         $('body').scrollTop(elementTop - cell)
-        //     if  (elementTop >= bottomBorder)
-        //         $('body').scrollTop(elementTop - $(window).height() + 2*cell)
-        //     if ((elementLeft <= leftBorder) || (elementLeft >= rightBorder))
-        //         $('body').scrollLeft(elementLeft - cell)
-        // }
+        if (id == socket.id){
+            var elementTop = canvas.position.top + location[0][1]*cell,
+                elementLeft = canvas.position.left + location[0][0]*cell,
+                leftBorder = $('body').scrollLeft() + cell,
+                topBorder = $('body').scrollTop() + cell,
+                rightBorder = leftBorder + $(window).width(),
+                bottomBorder = topBorder + $(window).height()
+
+            $('body').scrollTop(elementTop - $(window).height()/2)
+            $('body').scrollLeft(elementLeft - $(window).width()/2)
+
+            // if (elementTop <= topBorder)
+            //     $('body').scrollTop(elementTop - cell)
+            // if  (elementTop >= bottomBorder)
+            //     $('body').scrollTop(elementTop - $(window).height() + 2*cell)
+            // if ((elementLeft <= leftBorder) || (elementLeft >= rightBorder))
+            //     $('body').scrollLeft(elementLeft - cell)
+        }
 
         for(var i = 0; i<location.length; i++){
             var x = location[i][0],
