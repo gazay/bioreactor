@@ -40,7 +40,49 @@ canvas.images = {}
 canvas.images.wall = new Image()
 canvas.images.wall.src = 'images/wall.png'
 
+canvas.images.packman = []
+canvas.images.woman = []
 canvas.images.bioreactor = []
+
+canvas.images.packman[0] = new Image()
+canvas.images.packman[0].src = 'images/packman1_s.png'
+
+canvas.images.packman[1] = new Image()
+canvas.images.packman[1].src = 'images/packman2_s.png'
+
+canvas.images.packman[2] = canvas.images.packman[0]
+canvas.images.packman[3] = canvas.images.packman[1]
+
+canvas.images.packman[4] = new Image()
+canvas.images.packman[4].src = 'images/girl_in_pac.png'
+
+canvas.images.packman[5] = new Image()
+canvas.images.packman[5].src = 'images/girl_in_pac2.png'
+
+canvas.images.packman[6] = new Image()
+canvas.images.packman[6].src = 'images/pac33png.png'
+
+canvas.images.packman[7] = new Image()
+canvas.images.packman[7].src = 'images/packman1_new.png'
+
+canvas.images.packman[8] = new Image()
+canvas.images.packman[8].src = 'images/packman2_new.png'
+
+canvas.images.packman[9] = canvas.images.packman[7]
+canvas.images.packman[10] = canvas.images.packman[8]
+
+
+canvas.images.woman[0] = new Image()
+canvas.images.woman[0].src = 'images/girl1.png'
+
+canvas.images.woman[1] = new Image()
+canvas.images.woman[1].src = 'images/girl2.png'
+
+canvas.images.woman[2] = new Image()
+canvas.images.woman[2].src = 'images/girl3.png'
+
+canvas.images.woman[3] = new Image()
+canvas.images.woman[3].src = 'images/girl4.png'
 
 canvas.images.bioreactor[0] = new Image()
 canvas.images.bioreactor[0].src = 'images/bioreactor1.png'
@@ -54,24 +96,24 @@ canvas.images.bioreactor[2].src = 'images/bioreactor3.png'
 canvas.images.bioreactor[3] = new Image()
 canvas.images.bioreactor[3].src = 'images/bioreactor4.png'
 
-canvas.bioreactor = 0
+canvas.cycle = 0
 
 canvas.clear = function(){
     canvas.clearRect(0,0,canvas.element.width,canvas.element.height)
-    if (canvas.bioreactor < 3)
-        canvas.bioreactor += 1
+    if (canvas.cycle < 3)
+        canvas.cycle += 1
     else
-        canvas.bioreactor = 0
+        canvas.cycle = 0
 }
 
 canvas.previous = {};
+canvas.direction = {}
 
 canvas.draw = function(objects){
     canvas.clear()
 
     for(id in objects){
-        canvas.fillStyle = (id == socket.id) ? 'red' : 'black'
-        var location = objects[id], prevLocation = canvas.previous[id];
+        var location = objects[id];
 
         if (id == socket.id){
             var elementTop = canvas.position.top + location[0][1]*cell,
@@ -85,18 +127,90 @@ canvas.draw = function(objects){
             var x = location[i][0],
                 y = location[i][1]
 
-            if (prevLocation && prevLocation[i]){
-                var prevX = prevLocation[i][0],
-                    prevY = prevLocation[i][1];
-            }
-
             if (id.indexOf('h') != -1)
-                canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
+                canvas.drawImage(canvas.images.woman[canvas.cycle], 11 + x*cell, y*cell)
             else if (id.indexOf('w') != -1)
                 canvas.drawImage(canvas.images.wall, x*cell, y*cell)
             else if (id.indexOf('b') != -1)
-                canvas.drawImage(canvas.images.bioreactor[canvas.bioreactor], x*cell, y*cell)
-            else canvas.fillRect(x*cell, y*cell, cell, cell)
+                canvas.drawImage(canvas.images.bioreactor[canvas.cycle], x*cell, y*cell)
+            else if (i == 0){
+                var cycle = (location.length > 1) ? (canvas.cycle + 7) : canvas.cycle
+
+                if (canvas.previous[id]){
+
+                    if (x != canvas.previous[id][0])
+                        canvas.direction[id] = (x > canvas.previous[id][0]) ? 2 : 4
+
+                    if (y != canvas.previous[id][1])
+                        canvas.direction[id] = (y > canvas.previous[id][1]) ? 3 : 1
+
+                    if (canvas.direction[id] == 2){
+                        canvas.save()
+                        canvas.scale(-1,1)
+                        canvas.drawImage(canvas.images.packman[cycle], -40-x*cell, y*cell)
+                        canvas.restore()
+                    } else if (canvas.direction[id] == 3){
+                        canvas.save()
+                        canvas.rotate(270*Math.PI/180)
+                        canvas.drawImage(canvas.images.packman[cycle], -40-y*cell, x*cell)
+                        canvas.restore()
+                    } else if (canvas.direction[id] == 1){
+                        canvas.save()
+                        canvas.rotate(90*Math.PI/180)
+                        canvas.drawImage(canvas.images.packman[cycle], y*cell, -40-x*cell)
+                        canvas.restore()
+                    } else
+                        canvas.drawImage(canvas.images.packman[cycle], x*cell, y*cell)
+                } else
+                    canvas.drawImage(canvas.images.packman[cycle], x*cell, y*cell)
+            } else if (i == location.length - 1){
+                if (x < location[i-1][0]){
+                    canvas.save()
+                    canvas.scale(-1,1)
+                    canvas.drawImage(canvas.images.packman[5], -40-x*cell, y*cell)
+                    canvas.restore()
+                } else if (y < location[i-1][1]){
+                    canvas.save()
+                    canvas.rotate(270*Math.PI/180)
+                    canvas.drawImage(canvas.images.packman[5], -40-y*cell, x*cell)
+                    canvas.restore()
+                } else if (y > location[i-1][1]){
+                    canvas.save()
+                    canvas.rotate(90*Math.PI/180)
+                    canvas.drawImage(canvas.images.packman[5], y*cell, -40-x*cell)
+                    canvas.restore()
+                } else
+                    canvas.drawImage(canvas.images.packman[5], x*cell, y*cell)
+            } else {
+                var x1 = location[i-1][0],
+                    x2 = location[i+1][0],
+                    y1 = location[i-1][1],
+                    y2 = location[i+1][1]
+
+                if ((x == x1 && x == x2) || (y == y1 && y == y2))
+                    canvas.drawImage(canvas.images.packman[4], x*cell, y*cell)
+                else {
+                    if ((x2>x1 && y2>y1 && y==y2) || (x2<x1 && y2<y1 && x==x2)){
+                        canvas.save()
+                        canvas.rotate(Math.PI)
+                        canvas.drawImage(canvas.images.packman[6], -40-x*cell, -40-y*cell)
+                        canvas.restore()
+                    } else if ((x2<x1 && y2>y1 && x==x2) || (x2>x1 && y2<y1 && y==y2)){
+                        canvas.save()
+                        canvas.scale(-1,1)
+                        canvas.drawImage(canvas.images.packman[6], -40-x*cell, y*cell)
+                        canvas.restore()
+                    } else if ((x2>x1 && y2<y1 && x==x2) || (x2<x1 && y2>y1 && y==y2)){
+                        canvas.save()
+                        canvas.rotate(90*Math.PI/180)
+                        canvas.drawImage(canvas.images.packman[6], y*cell, -40-x*cell)
+                        canvas.restore()
+                    } else
+                        canvas.drawImage(canvas.images.packman[6], x*cell, y*cell)
+                }
+            }
+
+
 
       /*var j = 4;
       while(j>0){
@@ -107,10 +221,8 @@ canvas.draw = function(objects){
       }
       console.log(x+" : "+prevX)*/
         }
+        canvas.previous[id] = objects[id][0]
   }
-
-  canvas.previous = objects;
-
 }
 
 api = {
