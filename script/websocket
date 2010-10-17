@@ -15,6 +15,23 @@ def json(command, data)
   JSON.generate [command, data]
 end
 
+def tick
+  EM::Timer.new(0.05) do
+    # new_map = Map.view
+    # if $previous_map != new_map
+    #   $previous_map = new_map
+    #   puts new_map
+    #   puts
+    # end
+    Worm.all.each &:move
+    json = JSON.generate ['render', Map.data]
+    Worm.sockets.each do |socket|
+      socket.send json
+    end
+    tick
+  end
+end
+
 Host = (ENV['RAILS_ENV'] == 'production') ? 'bioreactor.r10.railsrumble.com' : '0.0.0.0'
 
 EM.run do
@@ -40,17 +57,5 @@ EM.run do
 
   end
 
-  EM::PeriodicTimer.new(0.05) do
-    # new_map = Map.view
-    # if $previous_map != new_map
-    #   $previous_map = new_map
-    #   puts new_map
-    #   puts
-    # end
-    Worm.all.each &:move
-    json = JSON.generate ['render', Map.data]
-    Worm.sockets.each do |socket|
-      socket.send json
-    end
-  end
+  tick
 end
