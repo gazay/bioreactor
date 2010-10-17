@@ -140,18 +140,19 @@ keyboard = {
 
 ping = {
     start: function(){
-        ping.element = $('<div id="ping">').appendTo('body')
+        ping.element = $('<div id="ping" style="position:fixed; background: white; top:0; right:0">').appendTo('body')
         ping.time = new Date().getTime()
         ping.results = []
-        setInterval(ping.show, 1000)
+        setInterval(ping.show, 2000)
         socket.send('ping')
     },
     update: function(){
-        ping.old_time = ping.time
-        ping.time = new Date().getTime()
-        ping.results.push(ping.time - ping.old_time)
+        ping.results.push(new Date().getTime() - ping.time)
         if (ping.results.length > 5) ping.results.shift
-        socket.send('ping')
+        setTimeout(function(){
+            ping.time = new Date().getTime()
+            socket.send('ping')
+        }, 1000)
     },
     show: function(){
         var sum = 0
