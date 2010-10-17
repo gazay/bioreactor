@@ -161,13 +161,13 @@ ping = {
     show: function(){
         var sum = 0
         $.each(ping.results, function(i,it){ sum += it })
-        var result = parseInt(sum / ping.results.length)
-        var sorry = '<br/>Sorry, you can experience delay<br/>because of the distance to our server'
+        var result = parseInt(sum / ping.results.length),
+            sorry = '<br/>Sorry, you can experience delay<br/>because of the distance to our server'
 
-        if result > 150
-            ping.element.text('Ping: ' + result + sorry)
+        if (result > 150)
+            ping.element.html('Ping: ' + result + sorry)
         else
-            ping.element.text('Ping: ' + result)
+            ping.element.html('Ping: ' + result)
     }
 }
 
