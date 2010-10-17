@@ -4,12 +4,13 @@ class Human
   @@humans = []
 
   def initialize(cell=nil)
-	if cell
-	  @cell = cell
-	  @cell.content = self
-	else
-	  @cell = Map.get_random self 
-	end
+    return if @@humans.size >= 20
+    if cell
+      @cell = cell
+      @cell.content = self
+    else
+      @cell = Map.get_random self
+    end
     @direction = rand(4) + 1
     @speed = 1
     @type = rand(3)

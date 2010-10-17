@@ -80,7 +80,7 @@ class Worm
       cutted = @cells.pop(@cells.size - index)
       cutted.each do |c|
         c.content = nil
-  Human.new c
+        Human.new c
       end
     end
   end
