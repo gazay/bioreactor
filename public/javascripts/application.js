@@ -156,7 +156,7 @@ ping = {
     },
     update: function(){
         ping.results.push(new Date().getTime() - ping.time)
-        if (ping.results.length > 5) ping.results.shift
+        if (ping.results.length > 5) ping.results.shift()
         setTimeout(function(){
             ping.time = new Date().getTime()
             socket.send('ping')
