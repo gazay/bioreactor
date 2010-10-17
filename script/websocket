@@ -17,7 +17,7 @@ def json(command, data)
 end
 
 Host = (ENV['RAILS_ENV'] == 'production') ? 'bioreactor.r10.railsrumble.com' : '0.0.0.0'
-15.times { Wall.new(rand(7) + 3) }
+20.times { Wall.new(rand(7) + 3) }
 5.times { Human.new }
 
 EM.run do
@@ -50,14 +50,27 @@ EM.run do
     #   puts new_map
     #   puts
     # end
-    Worm.all.each &:move
+    Worm.all.each {|it| it.move if it.size >= 5 }
     json = JSON.generate ['render', Map.data]
     Worm.sockets.each do |socket|
       socket.send json
     end
   end
 
+  EM::PeriodicTimer.new(0.07) do
+    Worm.all.each {|it| it.move if it.size == 4 }
+  end
+
+  EM::PeriodicTimer.new(0.08) do
+    Worm.all.each {|it| it.move if it.size == 3 }
+  end
+
+  EM::PeriodicTimer.new(0.09) do
+    Worm.all.each {|it| it.move if it.size == 2 }
+  end
+
   EM::PeriodicTimer.new(0.1) do
     Human.all.each &:move
+    Worm.all.each {|it| it.move if it.size == 1 }
   end
 end
