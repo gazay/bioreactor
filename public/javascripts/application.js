@@ -77,10 +77,12 @@ canvas.draw = function(objects){
                     prevY = prevLocation[i][1];
             }
 
-            if (typeof(id) == 'string' && id.indexOf('h') != -1)
+            if (id.indexOf('h') != -1)
                 canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
-            else
-                canvas.fillRect(x*cell, y*cell, cell, cell)
+            else if (id.indexOf('w') != -1){
+                // if (i > 0 && i < location.length)
+                canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
+            } else canvas.fillRect(x*cell, y*cell, cell, cell)
 
       /*var j = 4;
       while(j>0){

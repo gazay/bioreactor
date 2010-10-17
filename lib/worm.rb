@@ -1,5 +1,5 @@
 class Worm
-  attr_accessor :speed, :last_cell
+  attr_accessor :speed
   attr_reader :id, :cells, :direction
 
   @@worms = {}
@@ -30,8 +30,7 @@ class Worm
     when Bioreactor
     self.respawn #Muahahahah
     when NilClass
-      @last_cell = @cells.pop
-      @last_cell.content = nil
+      drop_last
       true
     when Human
       Human.destroy cell.content
@@ -66,6 +65,7 @@ class Worm
   def head_bang(cell)
     if self.size > Wall.strength
       Wall.destroy cell
+      drop_last
       true
     else
       false
@@ -111,6 +111,10 @@ class Worm
   def direction=(new_direction)
     @cells.reverse! if reverse_direction? new_direction
     @direction = new_direction
+  end
+
+  def drop_last
+    @cells.pop.content = nil
   end
 
   #class methods
