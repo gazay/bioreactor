@@ -9,6 +9,10 @@ class Worm
     init_data
     @speed = 1
     @@worms[socket] = self
+    2.times do
+      next_cell = @cells.first.next(direction)
+      unshift next_cell if next_cell
+    end
   end
 
   def init_data
@@ -19,10 +23,7 @@ class Worm
   def move
     next_cell = @cells.first.next(direction)
     return unless next_cell
-    if check_content next_cell
-      next_cell.content = self
-      @cells.unshift next_cell
-    end
+    unshift next_cell if check_content next_cell
   end
 
   def check_content(cell)
@@ -94,6 +95,11 @@ class Worm
     @cells.each do |cell|
       cell.content = nil
     end
+  end
+
+  def unshift(cell)
+    cell.content = self
+    @cells.unshift cell
   end
 
   def data
