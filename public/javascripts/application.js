@@ -119,8 +119,8 @@ canvas.draw = function(objects){
             var elementTop = canvas.position.top + location[0][1]*cell,
                 elementLeft = canvas.position.left + location[0][0]*cell
 
-            $('body').scrollTop(elementTop - $(window).height()/2)
-            $('body').scrollLeft(elementLeft - $(window).width()/2)
+            $(document).scrollTop(elementTop - $(window).height()/2)
+            $(document).scrollLeft(elementLeft - $(window).width()/2)
         }
 
         for(var i = 0; i<location.length; i++){
