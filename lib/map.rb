@@ -24,14 +24,18 @@ module Map
     end
   end
 
-  def get_wall(lenght, content)
+  def get_wall(length, content)
     wall = []
     cell = get_random content
     wall << cell
-    (lenght - 1).times do
-      cell = cell.next(rand(4) + 1) while (cell != nil) and cell.content.nil?
-      cell.content = content
-      wall << cell
+    direction = rand(4) + 1
+    (length - 1).times do
+      cell = wall.last.next(direction)
+      direction = rand(4) + 1 if rand(5) == 0
+      if cell
+        cell.content = content
+        wall << cell
+      end
     end
     wall
   end
@@ -39,7 +43,8 @@ module Map
   def data
     worms = Worm.all.map {|it| it.data }.flatten(1)
     humans = Human.all.map {|it| it.data }.flatten(1)
-    Hash[*(worms+humans)]
+    walls = Wall.data
+    Hash[*(worms+humans+walls)]
   end
 
   def view

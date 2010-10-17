@@ -35,6 +35,7 @@ def tick
 end
 
 Host = (ENV['RAILS_ENV'] == 'production') ? 'bioreactor.r10.railsrumble.com' : '0.0.0.0'
+15.times { Wall.new(rand(7) + 3) }
 5.times { Human.new }
 
 EM.run do

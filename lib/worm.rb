@@ -64,7 +64,7 @@ class Worm
   end
 
   def head_bang(cell)
-    if self.size > Wall.strenght
+    if self.size > Wall.strength
       Wall.destroy cell
       true
     else

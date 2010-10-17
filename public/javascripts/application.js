@@ -114,25 +114,25 @@ keyboard = {
                         keyboard.direction = 4
                         socket.send(4)
                     }
-                    break
+                    return false
                 case 38:
                     if (keyboard.direction != 1){
                         keyboard.direction = 1
                         socket.send(1)
                     }
-                    break
+                    return false
                 case 39:
                     if (keyboard.direction != 2){
                         keyboard.direction = 2
                         socket.send(2)
                     }
-                    break
+                    return false
                 case 40:
                     if (keyboard.direction != 3){
                         keyboard.direction = 3
                         socket.send(3)
                     }
-                    break
+                    return false
             }
         })
     }
