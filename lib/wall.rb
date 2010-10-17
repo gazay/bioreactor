@@ -11,7 +11,7 @@ class Wall
   end
 
   def self.data
-    ['w'] << @@walls.map {|it| it.location}
+    ['w'] << @@walls.map {|it| it.location }
   end
 
   def self.destroy(cell)

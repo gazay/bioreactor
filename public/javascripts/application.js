@@ -36,11 +36,32 @@ cell = 40
 canvas.element.width = 70 * cell
 canvas.element.height = 50 * cell
 canvas.images = {}
+
 canvas.images.wall = new Image()
 canvas.images.wall.src = 'images/wall.png'
 
+canvas.images.bioreactor = []
+
+canvas.images.bioreactor[0] = new Image()
+canvas.images.bioreactor[0].src = 'images/bioreactor1.png'
+
+canvas.images.bioreactor[1] = new Image()
+canvas.images.bioreactor[1].src = 'images/bioreactor2.png'
+
+canvas.images.bioreactor[2] = new Image()
+canvas.images.bioreactor[2].src = 'images/bioreactor3.png'
+
+canvas.images.bioreactor[3] = new Image()
+canvas.images.bioreactor[3].src = 'images/bioreactor4.png'
+
+canvas.bioreactor = 0
+
 canvas.clear = function(){
     canvas.clearRect(0,0,canvas.element.width,canvas.element.height)
+    if (canvas.bioreactor < 3)
+        canvas.bioreactor += 1
+    else
+        canvas.bioreactor = 0
 }
 
 canvas.previous = {};
@@ -54,21 +75,10 @@ canvas.draw = function(objects){
 
         if (id == socket.id){
             var elementTop = canvas.position.top + location[0][1]*cell,
-                elementLeft = canvas.position.left + location[0][0]*cell,
-                leftBorder = $('body').scrollLeft() + cell,
-                topBorder = $('body').scrollTop() + cell,
-                rightBorder = leftBorder + $(window).width(),
-                bottomBorder = topBorder + $(window).height()
+                elementLeft = canvas.position.left + location[0][0]*cell
 
             $('body').scrollTop(elementTop - $(window).height()/2)
             $('body').scrollLeft(elementLeft - $(window).width()/2)
-
-            // if (elementTop <= topBorder)
-            //     $('body').scrollTop(elementTop - cell)
-            // if  (elementTop >= bottomBorder)
-            //     $('body').scrollTop(elementTop - $(window).height() + 2*cell)
-            // if ((elementLeft <= leftBorder) || (elementLeft >= rightBorder))
-            //     $('body').scrollLeft(elementLeft - cell)
         }
 
         for(var i = 0; i<location.length; i++){
@@ -82,9 +92,11 @@ canvas.draw = function(objects){
 
             if (id.indexOf('h') != -1)
                 canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
-            else if (id.indexOf('w') != -1){
+            else if (id.indexOf('w') != -1)
                 canvas.drawImage(canvas.images.wall, x*cell, y*cell)
-            } else canvas.fillRect(x*cell, y*cell, cell, cell)
+            else if (id.indexOf('b') != -1)
+                canvas.drawImage(canvas.images.bioreactor[canvas.bioreactor], x*cell, y*cell)
+            else canvas.fillRect(x*cell, y*cell, cell, cell)
 
       /*var j = 4;
       while(j>0){

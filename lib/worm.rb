@@ -25,7 +25,8 @@ class Worm
   def check_content(cell)
     case cell.content
     when Bioreactor
-    self.respawn #Muahahahah
+      shift
+      false
     when NilClass
       drop_last
       true
@@ -96,6 +97,11 @@ class Worm
   def unshift(cell)
     cell.content = self
     @cells.unshift cell
+  end
+
+  def shift
+    @cells.shift.content = nil
+    respawn if @cells.empty?
   end
 
   def data
