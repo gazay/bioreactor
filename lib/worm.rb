@@ -66,7 +66,7 @@ class Worm
   def head_bang(cell)
     if self.size > Wall.strength
       Wall.destroy cell
-      drop_last
+      2.times { drop_last }
       true
     else
       false

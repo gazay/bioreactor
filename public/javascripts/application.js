@@ -35,6 +35,9 @@ canvas.position = $('canvas').position()
 cell = 40
 canvas.element.width = 70 * cell
 canvas.element.height = 50 * cell
+canvas.images = {}
+canvas.images.wall = new Image()
+canvas.images.wall.src = 'images/wall.png'
 
 canvas.clear = function(){
     canvas.clearRect(0,0,canvas.element.width,canvas.element.height)
@@ -80,8 +83,7 @@ canvas.draw = function(objects){
             if (id.indexOf('h') != -1)
                 canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
             else if (id.indexOf('w') != -1){
-                // if (i > 0 && i < location.length)
-                canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
+                canvas.drawImage(canvas.images.wall, x*cell, y*cell)
             } else canvas.fillRect(x*cell, y*cell, cell, cell)
 
       /*var j = 4;
