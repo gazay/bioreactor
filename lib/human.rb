@@ -3,8 +3,13 @@ class Human
 
   @@humans = []
 
-  def initialize()
-    @cell = Map.get_random self
+  def initialize(cell=nil)
+	if cell
+	  @cell = cell
+	  @cell.content = self
+	else
+	  @cell = Map.get_random self 
+	end
     @direction = rand(4) + 1
     @speed = 1
     @type = rand(3)
@@ -38,9 +43,5 @@ class Human
 
   def self.all
     @@humans
-  end
-
-  def check_availability(cell)
-    #TODO: when we create walls - use this method, or create in Cell
   end
 end
