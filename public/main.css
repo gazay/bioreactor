@@ -1,0 +1,123 @@
+* { margin: 0; padding: 0; }
+body { background: #FF8C00; font-family: Arial; }
+canvas { display: none; }
+#main {
+  width: 960px;
+  margin: 0 auto;
+  position: relative;
+
+}
+#background {
+  dispaly: block;
+  -moz-box-shadow: 0 0 50px #000000;
+  -webkit-box-shadow: 0 0 50px #000000;
+  box-shadow: 0 0 50px #000000;
+}
+
+#startButton {
+  display: inline-block; vertical-align: middle;
+  width: 136px; height: 38px;
+  background: url("play1.png") no-repeat;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+#startButton:hover {
+  background: url("play2.png") no-repeat;
+}
+
+#infoButton {
+  display: inline-block; vertical-align: middle;
+  width: 136px; height: 38px;
+  background: url("about1.png") no-repeat;
+  cursor: pointer;
+}
+
+#infoButton:hover {
+  background: url("about2.png") no-repeat;
+}
+
+#form {
+  position: absolute;
+  top: 20px; left: 20px;
+ }
+#form label {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  font-size: 22px;
+  color: #ffffff;
+}
+#form input {
+  width: 115px; height: 30px;
+  border: 2px solid #ffffff;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  border-radius: 16px;
+  -moz-box-shadow: 3px 3px 5px #000000 inset;
+  -webkit-box-shadow: 3px 3px 5px #000000 inset;
+  box-shadow: 3px 3px 5px #000000 inset;
+  background: #FF8C00;
+  padding: 2px 15px;
+  line-height: 30px;
+  font-size: 26px;
+  font-weight: bold;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.popup {
+  position: absolute; z-index: 200;
+  width: 500px;
+  padding: 15px;
+  -webkit-box-shadow: 0 0 22px #444444;
+  -moz-box-shadow: 0 0 22px #444444;
+  box-shadow: 0 0 22px #444444;
+  background: #ffffff;
+  display: none;
+  text-align: left !important;
+  left: 50%;
+}
+.popup .corners { position: absolute; z-index: -1; }
+.popup .corners { background: url("popup.png") no-repeat; }
+.popup .tr { background-position: top right; }
+.popup .bl { background-position: bottom left; }
+.popup .br { background-position: bottom right; }
+.popup .tl { top: -22px; bottom: 22px; left: -22px; right: 22px; }
+.popup .tr { width: 44px; top: -22px; bottom: 22px; right: -22px; }
+.popup .bl { left: -22px; right: 22px; bottom: -22px; height: 44px; }
+.popup .br { width: 44px; height: 44px; right: -22px; bottom: -22px; }
+.popup .close {
+  width: 12px; height: 12px;
+  display: block;
+  font-size: 0; line-height: 0;
+  position: absolute; right: 10px; top: 10px;
+  background: url("popupClose.png") no-repeat;
+  cursor: pointer;
+}
+.popup h4 { font-size: 16px; margin-bottom: 10px; }
+.overlay {
+  position: fixed; top: 0; left: 0; z-index: 100;
+  width: 100%; height: 100%;
+  background: #000;
+  display: none;
+}
+
+.popup .content {
+  height:600px;
+  overflow-y:scroll;
+  padding: 0 15px 0 0;
+  margin-top: 10px;
+}
+.popup .content p { margin-bottom: 10px; }
+
+#icons {
+  position: absolute;
+  top: 15px; right: 20px;
+}
+#icons img { display: inline-block; margin-left: 10px; }
+
+.packmanLong { display: block; margin: 0 auto 40px auto; }
+.wall, img.bioreactor, .other { float: left; margin-right: 10px; display: block; }
+p.bioreactor { overflow: hidden; }
