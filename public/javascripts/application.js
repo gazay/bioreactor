@@ -31,8 +31,10 @@ socket.onmessage = function(event){
 
 canvas = $('canvas')[0].getContext('2d')
 canvas.element = $('canvas')[0]
-canvas.element.width = 280
-canvas.element.height = 200
+canvas.position = $('canvas').position()
+cell = 40
+canvas.element.width = 70 * cell
+canvas.element.height = 50 * cell
 
 canvas.clear = function(){
     canvas.clearRect(0,0,canvas.element.width,canvas.element.height)
@@ -40,14 +42,13 @@ canvas.clear = function(){
 
 canvas.previous = {};
 
-
 canvas.draw = function(objects){
     canvas.clear()
 
     for(id in objects){
         canvas.fillStyle = (id == socket.id) ? 'red' : 'black'
-
         var location = objects[id], prevLocation = canvas.previous[id];
+
         for(var i = 0; i<location.length; i++){
             var x = location[i][0],
                 y = location[i][1]
@@ -58,9 +59,9 @@ canvas.draw = function(objects){
             }
 
             if (typeof(id) == 'string' && id.indexOf('h') != -1)
-                canvas.fillRect(x*4+1, y*4+1, 2, 2)
+                canvas.fillRect(x*cell+cell/4, y*cell+cell/4, cell/2, cell/2)
             else
-                canvas.fillRect(x*4, y*4, 4, 4)
+                canvas.fillRect(x*cell, y*cell, cell, cell)
 
       /*var j = 4;
       while(j>0){
